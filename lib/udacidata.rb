@@ -5,6 +5,9 @@ require 'csv'
 class Udacidata
   
   def self.create(attributes = nil)
+    CSV.foreach(DATA_PATH) do |row|
+
+      
     # If the object's data is already in the database
     # create the object
     # return the object
