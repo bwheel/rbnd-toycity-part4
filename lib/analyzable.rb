@@ -1,3 +1,21 @@
 module Analyzable
-  # Your code goes here!
+  def count_by_brand (*products)
+    # retuns a hash with inventory counts, organized by brand.
+  end
+
+  def count_by_name(*products)
+    # should return a hash with inventory counts, organized by product name    
+  end
+
+  def average_price(*products)
+    # return the average price of the total products.
+  end
+
+  def print_report(*products)
+    # returns summary inventory report containing :
+    # average price
+    # counts by brand, 
+    # counts by name
+  end
 end
+
