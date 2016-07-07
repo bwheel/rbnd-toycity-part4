@@ -14,9 +14,21 @@ module Analyzable
 
   def print_report(*products)
     # returns summary inventory report containing :
+    
     # average price
+    puts "Average price:$#{products}"
+    
     # counts by brand, 
+    by_brand = count_by_brand(products)
+    by_brand.each do |brand, count|
+      puts "\t- #{brand}: #{count}"
+    end
+
     # counts by name
+    by_name = count_by_name(products)
+    by_name.each do |name, count|
+      puts "\t- #{name}: #{count}"
+    end
   end
 end
 
