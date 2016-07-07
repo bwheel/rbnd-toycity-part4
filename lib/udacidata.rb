@@ -39,9 +39,9 @@ class Udacidata
     # raises a (ProductNotFoundError) if not found in database
     result_items = all.select { |item| item.id == id}
     if result_items.empty?
-      raise ProductNotFoundError, "The product at index #{id} was not found in database"
+      raise ProductNotFoundError, "The product with id: #{id} was not found in database"
     else
-      result_items.first()
+      result_items.first
     end
   end
 
@@ -53,6 +53,13 @@ class Udacidata
   def self.destroy(id)
     # destroys the product with the i passed in from the database.
     # raises an error (ProductNotFoundError) if not in database.
+    deleted_items = all.select {|item| item.id == id}
+    if deleted_items.empty?
+      raise ProductNotFoundError, "The product with id: #{id} was not found in database"
+    else
+      all.delete(deleted_items.first)
+      deleted_items.first
+    end
   end
 
   def self.where(filters)
