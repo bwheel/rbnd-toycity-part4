@@ -58,6 +58,17 @@ class Udacidata
       raise ProductNotFoundError, "The product with id: #{id} was not found in database"
     else
       all.delete(deleted_items.first)
+        # get current CSV file.
+        data_path = File.dirname(__FILE__) + "/../data/data.csv"
+        table = CSV.table(data_path)
+        # remove the row in the table variable.
+        table.delete_if {|row| row[:id] == id }
+
+        # overwrite the datafile.
+        File.open(data_path, 'w') do |f|
+          f.write(table.to_csv)
+        end
+
       deleted_items.first
     end
   end
