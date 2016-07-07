@@ -64,6 +64,7 @@ module Analyzable
     end
 
     puts report
+    report
   end
 end
 
