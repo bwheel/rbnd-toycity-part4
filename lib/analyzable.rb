@@ -1,11 +1,35 @@
 module Analyzable
-  def count_by_brand (*products)
+  #def count_by_brand (*products)
     # retuns a hash with inventory counts, organized by brand.
+  #  products.flatten!
+  #  results = {}
+  #  products.each do |product|
+  #    results[product.brand] += 1
+  #  end
+
+ #   results
+ # end
+
+ # def count_by_name(*products)
+    # should return a hash with inventory counts, organized by product name    
+ # end
+
+  def create_count_by_methods(*attributes)
+    attributes.flatten!
+    attributes.each do |attribute|
+      instance_eval %Q(
+        def count_by_#{attribute}(*products)
+          products.flatten!
+          results = {}
+          products.each do |product|
+            results[product.#{attribute}] += 1
+          end
+          results
+        end
+      )
+    end
   end
 
-  def count_by_name(*products)
-    # should return a hash with inventory counts, organized by product name    
-  end
 
   def average_price(*products)
     products.flatten!

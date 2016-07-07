@@ -1,13 +1,24 @@
 require_relative 'find_by'
 require_relative 'errors'
+require_relative 'analyzable'
 require 'csv'
+
+include Analyzable
 
 class Udacidata
   
   def self.create(attributes = nil)
-    create_finder_methods :brand, :name
+    #create_finder_methods :brand, :name
+     
     # create new instance of item.
     item = self.new(attributes)
+    
+    # figure out what attributes we gotz
+    attribute_labels = item.instance_variables.map {|attr| attr[1..-1]} || []
+
+    # dynamically create find_by_XXX methods and count_by_xxx methods
+    create_finder_methods attribute_labels
+    Analyzable::create_count_by_methods attribute_labels
 
     # save to database.
     save_item_to_database item
