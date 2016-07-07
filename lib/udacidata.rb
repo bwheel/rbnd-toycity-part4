@@ -34,9 +34,15 @@ class Udacidata
     index == nil ? all.last() : all.last(index)
   end
 
-  def self.find(index)
+  def self.find(id)
     # returns the object at the index passed in.
     # raises a (ProductNotFoundError) if not found in database
+    result_items = all.select { |item| item.id == id}
+    if result_items.empty?
+      raise ProductNotFoundError, "The product at index #{id} was not found in database"
+    else
+      result_items.first()
+    end
   end
 
   def create_find_by_attributes
