@@ -38,11 +38,11 @@ class TestUdacidata < MiniTest::Test
     end
   end
   
-  # def test_all_method_returns_all_products_in_database
-  #   expected = CSV.read(@data_path).drop(1).length
-  #   actual = Product.all.length
-  #   assert_equal(expected, actual)
-  # end
+  def test_all_method_returns_all_products_in_database
+    expected = CSV.read(@data_path).drop(1).length
+    actual = Product.all.length
+    assert_equal(expected, actual)
+  end
   #
   # def test_first_method_returns_product_object
   #   product = Product.first
