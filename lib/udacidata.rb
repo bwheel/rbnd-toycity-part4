@@ -24,7 +24,8 @@ class Udacidata
   def self.first(index = nil)
     #returns the first object in the array of product objects.
     # if there is an index it returns the first item(s) as an array. 
-    # index may be off by one.
+    index == nil ? all.first() : all.first(index)
+    
   end
 
   def self.last(index = nil)
