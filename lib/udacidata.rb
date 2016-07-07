@@ -18,7 +18,7 @@ class Udacidata
 
   def self.all
     # returns the array of the product objects .
-    get_data_from_database.to_a()
+    get_data_from_database.to_a().map { |item| self.new( :id => item[0].to_i, :brand => item[1], :name => item[2], :price => item[3].to_f) }
   end
 
   def self.first(index = nil)
