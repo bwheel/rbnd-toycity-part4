@@ -18,7 +18,7 @@ class Udacidata
 
   def self.all
     # returns the array of the product objects .
-    get_data_from_database
+    get_data_from_database.to_a()
   end
 
   def self.first(index = nil)
@@ -64,7 +64,7 @@ class Udacidata
 
   def self.get_data_from_database
     data_path = File.dirname(__FILE__) + "/../data/data.csv"
-    CVS.read(data_path, :headers => :first_row)
+    CSV.read(data_path, :headers => :first_row)
   end
 
   def self.save_item_to_database(item)
