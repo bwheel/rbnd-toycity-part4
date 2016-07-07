@@ -16,27 +16,30 @@ class Udacidata
     item
   end
 
+  ##############################################
+  # returns the array of the product objects .
   def self.all
-    # returns the array of the product objects .
     get_data_from_database.to_a().drop(1).map { |item| self.new( :id => item[0].to_i, :brand => item[1], :name => item[2], :price => item[3].to_f) }
   end
-
-  def self.first(index = nil)
-    #returns the first object in the array of product objects.
-    # if there is an index it returns the first item(s) as an array. 
+  
+  ##############################################
+  #returns the first object in the array of product objects.
+  # if there is an index it returns the first item(s) as an array.
+  def self.first(index = nil) 
     index == nil ? all.first() : all.first(index)
-    
   end
-
-  def self.last(index = nil)
-    #returns the last object in the array of product objects.
-    # if there is an index it returns the last item(s) as an array. 
+  
+  ##############################################
+  #returns the last object in the array of product objects.
+  # if there is an index it returns the last item(s) as an array.
+  def self.last(index = nil) 
     index == nil ? all.last() : all.last(index)
   end
 
-  def self.find(id)
-    # returns the object at the index passed in.
-    # raises a (ProductNotFoundError) if not found in database
+  ##############################################
+  # returns the object at the index passed in.
+  # raises a (ProductNotFoundError) if not found in database
+  def self.find(id)  
     result_items = all.select { |item| item.id == id}
     if result_items.empty?
       raise ProductNotFoundError, "The product with id: #{id} was not found in database"
@@ -45,9 +48,10 @@ class Udacidata
     end
   end
 
+  ##############################################
+  # destroys the product with the i passed in from the database.
+  # raises an error (ProductNotFoundError) if not in database.
   def self.destroy(id)
-    # destroys the product with the i passed in from the database.
-    # raises an error (ProductNotFoundError) if not in database.
     deleted_items = all.select {|item| item.id == id}
     if deleted_items.empty?
       raise ProductNotFoundError, "The product with id: #{id} was not found in database"
@@ -68,20 +72,28 @@ class Udacidata
     end
   end
 
+  ##############################################
+  # this function will return an array of products.
+  # it will pass in filters of attributes to search by in the form of a hash
+  # filters ex:
+  #     {:brand => "lego"}
   def self.where(filters)
-    # this function will return an array of products.
-    # it will pass in filters of attributes to search by in the form of a hash
-    # filters ex:
-    #     {:brand => "lego"}
     items = all
     result_items = items.select { |item| item.brand == filters[:brand] } if filters[:brand]
     result_items = items.select { |item| item.name == filters[:name] } if filters[:name]
     result_items
   end
-
+  
+  ##############################################
+  #This is an instance function that will update a givien product
+  # depending on the attributes in the updates hash
   def update(updates)
-    #This is an instance function that will update a givien product
-    # depending on the attributes in the updates hash
+      @brand = updates[:brand] if updates[:brand]
+      @name = updates[:name] if updates[:name]
+      @price = updates[:price] if updates[:price]
+      self.class.destroy(@id)
+      self.class.create(:id => @id, :brand => @brand, :name => @name, :price => @price)
+      self
   end
 
   private
