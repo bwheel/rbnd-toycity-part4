@@ -31,7 +31,7 @@ class Udacidata
   def self.last(index = nil)
     #returns the last object in the array of product objects.
     # if there is an index it returns the last item(s) as an array. 
-    # index may be off by one.
+    index == nil ? all.last() : all.last(index)
   end
 
   def self.find(index)
