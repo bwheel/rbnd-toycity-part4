@@ -73,6 +73,10 @@ class Udacidata
     # it will pass in filters of attributes to search by in the form of a hash
     # filters ex:
     #     {:brand => "lego"}
+    items = all
+    result_items = items.select { |item| item.brand == filters[:brand] } if filters[:brand]
+    result_items = items.select { |item| item.name == filters[:name] } if filters[:name]
+    result_items
   end
 
   def update(updates)
