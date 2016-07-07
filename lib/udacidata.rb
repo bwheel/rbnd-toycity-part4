@@ -29,6 +29,7 @@ class Udacidata
 
   ##############################################
   # returns the array of the product objects .
+  # TODO: make this get from database dynamic based on attributes.
   def self.all
     get_data_from_database.to_a().drop(1).map { |item| self.new( :id => item[0].to_i, :brand => item[1], :name => item[2], :price => item[3].to_f) }
   end
@@ -108,7 +109,6 @@ class Udacidata
   end
 
   private
-
   def self.get_data_from_database
     data_path = File.dirname(__FILE__) + "/../data/data.csv"
     CSV.read(data_path, :headers => :first_row)

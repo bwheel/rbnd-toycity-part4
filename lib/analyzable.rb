@@ -1,14 +1,14 @@
 module Analyzable
   #def count_by_brand (*products)
-    # retuns a hash with inventory counts, organized by brand.
+  #  # retuns a hash with inventory counts, organized by brand.
   #  products.flatten!
   #  results = {}
   #  products.each do |product|
   #    results[product.brand] += 1
   #  end
-
- #   results
- # end
+  #
+  #  results
+  #end
 
  # def count_by_name(*products)
     # should return a hash with inventory counts, organized by product name    
@@ -22,14 +22,21 @@ module Analyzable
           products.flatten!
           results = {}
           products.each do |product|
-            results[product.#{attribute}] += 1
+            results[product.#{attribute}] = results[product.#{attribute}] != nil ? results[product.#{attribute}] + 1 : 1 
           end
           results
         end
       )
     end
   end
-
+  #def count_by_name(*products)
+  #    products.flatten!
+  #    results = {}
+  #    products.each do |product|
+  #      results[product.name]=  (results[product.name] != nil) ? results[product.name] + 1 : 1
+  #     end
+  #    results
+  #end
 
   def average_price(*products)
     products.flatten!
@@ -40,15 +47,17 @@ module Analyzable
     # returns summary inventory report containing :
     
     # average price
-    puts "Average price:$#{products}"
+    puts "Average price:$#{average_price(products)}"
     
     # counts by brand, 
+    puts "Inventory by Brand:"
     by_brand = count_by_brand(products)
     by_brand.each do |brand, count|
       puts "\t- #{brand}: #{count}"
     end
 
     # counts by name
+    puts "Inventory by Name:"
     by_name = count_by_name(products)
     by_name.each do |name, count|
       puts "\t- #{name}: #{count}"
