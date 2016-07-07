@@ -5,21 +5,20 @@ require 'csv'
 class Udacidata
   
   def self.create(attributes = nil)
-    CSV.foreach(DATA_PATH) do |row|
 
-      
-    # If the object's data is already in the database
-    # create the object
-    # return the object
+    # create new instance of item.
+    item = self.new(attributes)
 
-    # If the object's data is not in the database
-    # create the object
-    # save the data in the database
-    # return the object
+    # save to database.
+    save_item_to_database item
+    
+    # return the item.
+    item
   end
 
   def self.all
     # returns the array of the product objects .
+    get_data_from_database
   end
 
   def self.first(index = nil)
@@ -61,4 +60,17 @@ class Udacidata
     # depending on the attributes in the updates hash
   end
 
+  private
+
+  def self.get_data_from_database
+    data_path = File.dirname(__FILE__) + "/../data/data.csv"
+    CVS.read(data_path, :headers => :first_row)
+  end
+
+  def self.save_item_to_database(item)
+    data_path = File.dirname(__FILE__) + "/../data/data.csv"
+    CSV.open(data_path, "a+") do |cvs|
+      cvs << [item.id, item.brand, item.name, item.price]
+    end
+  end
 end
