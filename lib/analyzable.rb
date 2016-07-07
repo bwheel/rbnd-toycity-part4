@@ -47,21 +47,23 @@ module Analyzable
     # returns summary inventory report containing :
     
     # average price
-    puts "Average price:$#{average_price(products)}"
+    report = "Average price:$#{average_price(products)}\n"
     
     # counts by brand, 
-    puts "Inventory by Brand:"
+    report << "Inventory by Brand:"
     by_brand = count_by_brand(products)
     by_brand.each do |brand, count|
-      puts "\t- #{brand}: #{count}"
+      report << "\t- #{brand}: #{count}\n"
     end
 
     # counts by name
-    puts "Inventory by Name:"
+    report << "Inventory by Name:\n"
     by_name = count_by_name(products)
     by_name.each do |name, count|
-      puts "\t- #{name}: #{count}"
+      report << "\t- #{name}: #{count}\n"
     end
+
+    puts report
   end
 end
 
