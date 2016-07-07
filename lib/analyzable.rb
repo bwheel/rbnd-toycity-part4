@@ -8,7 +8,8 @@ module Analyzable
   end
 
   def average_price(*products)
-    # return the average price of the total products.
+    products.flatten!
+    (products.inject(0) {|sum,p| sum + p.price} / products.length ).round(2)
   end
 
   def print_report(*products)
