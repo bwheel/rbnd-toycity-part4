@@ -5,7 +5,7 @@ require 'csv'
 class Udacidata
   
   def self.create(attributes = nil)
-
+    create_finder_methods :brand, :name
     # create new instance of item.
     item = self.new(attributes)
 
@@ -43,11 +43,6 @@ class Udacidata
     else
       result_items.first
     end
-  end
-
-  def create_find_by_attributes
-    # use metaprogramming to define a find_by_{attribute} function
-    # call this function at the bottom of this file.
   end
 
   def self.destroy(id)
